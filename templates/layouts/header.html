@@ -1,0 +1,142 @@
+{% load static %}
+{% load i18n %}
+{% load my_tags %}
+
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__option">
+        <div class="offcanvas__links">
+            <a href="#">
+                {% trans 'Sign in' %}
+            </a>
+            <a href="#">
+                {% trans 'FAQs' %}
+            </a>
+        </div>
+        <div class="offcanvas__top__hover">
+            {% get_current_language as lang %}
+            <span>{{ lang }}<i class="arrow_carrot-down"></i></span>
+            <ul>
+                {% get_available_languages as all_langs %}
+                {% for l in all_langs %}
+                    {% if l.0 != lang %}
+                        <li>
+                            <a style="color: #111111; text-after-overflow: none" href="{% get_lang_url request l.0 %}">
+                                {{ l.0|upper }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="offcanvas__nav__option">
+        <a href="#" class="search-switch"><img src="{% static 'img/icon/search.png' %}" alt=""></a>
+        <a href="#"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
+        <a href="#"><img src="{% static 'img/icon/cart.png' %}" alt=""> <span>0</span></a>
+        <div class="price">$0.00</div>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <div class="offcanvas__text">
+    </div>
+</div>
+
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-7">
+                    <div class="header__top__left">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-5">
+                    <div class="header__top__right">
+                        <div class="header__top__links">
+                            {% if request.user.is_authenticated %}
+                                <a href="{% url 'profile:home' %}">{% trans 'Profile' %}
+                                </a>
+                                <a href="{% url 'orders:history' %}">
+                                    {% trans 'History' %}
+                                </a>
+                                <a href="{% url 'auth_logout' %}">{% trans 'Log out' %}</a>
+                            {% else %}
+                                <a href="{% url 'auth_login' %}">{% trans 'Sign in' %}</a>
+                            {% endif %}
+                        </div>
+                        <div class="header__top__hover">
+                            {% get_current_language as lang %}
+                            <span>{{ lang }}<i class="arrow_carrot-down"></i></span>
+                            <ul>
+                                {% get_available_languages as all_langs %}
+                                {% for l in all_langs %}
+                                    {% if l.0 != lang %}
+                                        <li>
+                                            <a style="color: #111111; text-after-overflow: none"
+                                               href="{% get_lang_url request l.0 %}">
+                                                {{ l.0|upper }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a href="/"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>{% url 'pages:home' as home_url %}
+                        <li {% if request.path == home_url %} class="active" {% endif %}>
+                            <a href="{{ home_url }}">
+                                {% trans 'Home' %}
+                            </a>
+                        </li>
+                        <li {% if '/products/' in request.path %} class="active" {% endif %}>
+                            <a href="{% url 'products:list' %}">
+                                {% trans 'Products' %}
+                            </a>
+                        </li>
+                        <li{% if '/blog/' in request.path %} class="active" {% endif %}>
+                            <a href="{% url 'posts:list' %}">
+                                {% trans 'Blog' %}
+                            </a>
+                        </li>
+                        <li {% if '/about/' in request.path %} class="active" {% endif %}>
+                            <a href="{% url 'pages:about' %}">
+                                {% trans 'About' %}
+                            </a>
+                        </li>
+                        <li {% if '/contact/' in request.path %} class="active" {% endif %}>
+                            <a href="{% url 'pages:contact' %}">
+                                {% trans 'Contacts' %}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="header__nav__option">
+                    <a href="#" class="search-switch"><img src="{% static 'img/icon/search.png' %}" alt=""></a>
+                    <a href="{% url 'products:wishlist' %}">
+                        <img src="{% static 'img/icon/heart.png' %}" alt="">
+                    </a>
+                    <a href="{% url 'products:cart-list' %}">
+                        <img src="{% static 'img/icon/cart.png' %}" alt="">
+                        <span>{% cart_count request %}</span>
+                    </a>
+                    <div class="price">$ {% cart_price request %}</div>
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+</header>
