@@ -35,8 +35,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>First Name<span>*</span></p>
-                                        <input value="{{ profile.first_name|default:'' }}" name="first_name"
-                                               type="text">
+                                        <input value="{{ profile.first_name|default:'' }}" name="first_name" type="text">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -48,14 +47,14 @@
                             </div>
                             <div class="checkout__input">
                                 <p>Country<span>*</span></p>
-                                <input value="{{ profile.last_name|default:'' }}" name="last_name" type="text">
+                                <input value="{{ profile.country|default:'' }}" name="country" type="text">
                             </div>
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
                                 <input value="{{ profile.address1|default:'' }}" name="address1" type="text"
                                        placeholder="Street Address" class="checkout__input__add">
                                 <input value="{{ profile.address2|default:'' }}" name="address2" type="text"
-                                       placeholder="Apartment, suite, unite ect (optinal)">
+                                       placeholder="Apartment, suite, unite ect (optional)">
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>

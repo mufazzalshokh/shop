@@ -1,14 +1,15 @@
 from pathlib import Path
 
+from decouple import config
 from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-kp*km9lwuqi%@0p3u+d+nq=5fhdt^+$o^84v&6!%vr2l0z4kkh'
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'modeltranslation',
@@ -64,8 +65,12 @@ WSGI_APPLICATION = 'shop3.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASS'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
@@ -131,5 +136,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'pythonmf777@gmail.com'
-EMAIL_HOST_PASSWORD = 'testpass!123'
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
+
+try:
+    from .settings_local import *
+except ImportError:
+    pass
