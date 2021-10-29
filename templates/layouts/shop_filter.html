@@ -64,7 +64,7 @@
                         {% for tag in tags %}
                             <a {% if request.GET.tag == tag.pk|stringformat:'i' %}
                                 style="color:white;background-color:black"{% endif %}
-                               onclick="addUrlParameter('tag', '{{ tag.pk }}')">{{ tag.title }}</a>
+                                onclick="addUrlParameter('tag', '{{ tag.pk }}')">{{ tag.title }}</a>
                         {% endfor %}
                     </div>
                 </div>

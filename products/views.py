@@ -35,7 +35,7 @@ class ProductsListView(ListView):
             qs = qs.filter(tags__id=tag)
 
         if size:
-            qs = qs.filter(sizes__id=size)
+            qs = qs.filter(size__id=size)
 
         if color:
             qs = qs.filter(color__id=color)

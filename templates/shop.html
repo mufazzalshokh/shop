@@ -84,6 +84,7 @@
 {% endblock %}
 
 {% block extra_js %}
+
     <script>
         function addUrlParameter(name, value) {
             let searchParams = new URLSearchParams(window.location.search)
@@ -107,8 +108,9 @@
             prefix: "$",
             onfinish(data) {
                 let result = data.from.toString() + ';' + data.to.toString();
-                addUrlParameter('price', result)
-            }
+                addUrlParameter('price', result);
+            },
         });
     </script>
+
 {% endblock %}
